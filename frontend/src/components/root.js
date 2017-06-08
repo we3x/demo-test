@@ -1,4 +1,5 @@
 import React from 'react';
+import Login from './login';
 
 const Root = React.createClass({
   handleSomething(event) {
@@ -7,8 +8,7 @@ const Root = React.createClass({
   render() {
     return (
       <div>
-        Hello world!
-        <button onClick={this.handleSomething} > Hello </button>
+        <Login />
       </div>
     );
   },
