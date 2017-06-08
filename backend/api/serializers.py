@@ -1,4 +1,4 @@
-from api.models import Broadcast, Category, CustomUser
+from api.models import Broadcast, Category
 from rest_framework import serializers
 
 

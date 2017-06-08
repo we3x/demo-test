@@ -5,6 +5,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'broadcasts', views.BroadcastList)
+router.register(r'categorys', views.CategoryList)
 urlpatterns = [
     url(
         r'^v1/',

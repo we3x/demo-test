@@ -4,12 +4,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
-class CustomUser(User):
-    user = models.OneToOneField(User)
-
-    def __str__(self):
-        return self.User.username
-
 class Category(models.Model):
     name = models.CharField(max_length=16)
 
@@ -17,7 +11,7 @@ class Category(models.Model):
         return self.name
 
 class Broadcast(models.Model):
-    instructor = models.ForeignKey(CustomUser)
+    instructor = models.ForeignKey(User)
     title = models.CharField(max_length=32)
     category = models.ForeignKey(Category)
     startTime = models.DateTimeField()
