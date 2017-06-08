@@ -1,17 +1,23 @@
 import React from 'react';
 import Login from './login';
+import Home from './home';
+import { Router, hashHistory } from 'react-router';
 
-const Root = React.createClass({
-  handleSomething(event) {
-    console.log(event);
+const routes = [
+  {
+    component: Home,
+    path: '/home/',
   },
-  render() {
-    return (
-      <div>
-        <Login />
-      </div>
-    );
+  {
+    path: '/login/',
+    component: Login,
   },
-});
+];
 
+
+function Root() {
+  return (
+    <Router history={hashHistory} routes={routes} />
+  );
+}
 export default Root;
