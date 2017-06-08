@@ -11,7 +11,7 @@ class BroadcastList(viewsets.ModelViewSet):
     queryset = serializer_class.Meta.model.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(instructor=self.request.user, premium=False, category=0)
+        serializer.save(instructor=self.request.user, premium=False)
 
 class CategoryList(viewsets.ModelViewSet):
     serializer_class = serializers.CategorySerializer
