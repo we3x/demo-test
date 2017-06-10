@@ -2,14 +2,17 @@ import isomorphicFetch from 'isomorphic-fetch';
 
 export function getAuthToken() {
   // eslint-disable-next-line no-undef
-  return window.localStorage.OneLoveAuthToken;
+  return window.localStorage.liveeduToken;
 }
 
 
 export function isLoggedIn() {
   return Boolean(getAuthToken());
 }
-
+export function logOut() {
+  // eslint-disable-next-line no-undef
+  window.localStorage.removeItem('liveeduToken');
+}
 export function fetch(args) {
   const {
     url,
@@ -31,10 +34,12 @@ export function fetch(args) {
   if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
     newargs.headers['Content-Type'] = 'application/json';
   }
-  console.log(newargs);
   return isomorphicFetch(url, newargs)
     .then(response => {
       const json = response.json();
+      if (response.status === 401) {
+        logOut();
+      }
       if (response.status >= 400) {
         const error = new Error(response.statusText);
         error.response = response;
