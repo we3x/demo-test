@@ -31,6 +31,7 @@ export function fetch(args) {
   if (method === 'POST' || method === 'PUT' || method === 'PATCH') {
     newargs.headers['Content-Type'] = 'application/json';
   }
+  console.log(newargs);
   return isomorphicFetch(url, newargs)
     .then(response => {
       const json = response.json();

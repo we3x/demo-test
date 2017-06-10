@@ -1,0 +1,1 @@
+export const BROADCAST_LIST = 'BROADCAST_LIST';

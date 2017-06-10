@@ -1,27 +1,70 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import actions from './actions';
+import { isLoggedIn } from '../../utils';
+
+function mapStateToProps(state) {
+  return {
+    token: state.login.token,
+    status: state.login.status,
+    error: state.login.error,
+  };
+}
 
 const Component = React.createClass({
+  propTypes: {
+    reset: React.PropTypes.func.isRequired,
+    login: React.PropTypes.func.isRequired,
+  },
+
+  contextTypes: {
+    router: React.PropTypes.object.isRequired,
+  },
+
   getInitialState() {
     return {
-      username: '',
+      email: '',
       password: '',
     };
   },
+
+  componentWillMount() {
+    if (isLoggedIn()) {
+      this.context.router.push('/home/');
+    }
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.status === 'error') {
+      this.setState({ status: 'error', message: nextProps.error });
+      this.props.reset();
+    }
+  },
+
+  shouldComponentUpdate() {
+    if (isLoggedIn()) {
+      this.context.router.push('/home/');
+      return false;
+    }
+    return true;
+  },
+
   handleChangeUsername(event) {
-    this.setState({ username: event.target.value });
+    this.setState({ email: event.target.value });
   },
   handleChangePassword(event) {
     this.setState({ password: event.target.value });
   },
   handleSubmit(event) {
-    console.log(this.state, event);
+    event.preventDefault();
+    this.props.login(this.state.email, this.state.password);
   },
   render() {
     return (
       <div className="container">
         <div className="row">
             <div className="span12">
-              <div className="form-horizontal">
+              <form className="form-horizontal">
                 <div>
                   <legend>Login</legend>
                 </div>
@@ -53,7 +96,7 @@ const Component = React.createClass({
                     >Login</button>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
       </div>
@@ -61,4 +104,4 @@ const Component = React.createClass({
   },
 });
 
-export default Component;
+export default connect(mapStateToProps, actions)(Component);

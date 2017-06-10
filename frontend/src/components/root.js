@@ -1,7 +1,9 @@
 import React from 'react';
 import Login from './login';
 import Home from './home';
+import { Provider } from 'react-redux';
 import { Router, hashHistory } from 'react-router';
+import store from '../store';
 
 const routes = [
   {
@@ -17,7 +19,9 @@ const routes = [
 
 function Root() {
   return (
-    <Router history={hashHistory} routes={routes} />
+    <Provider store={store} >
+      <Router history={hashHistory} routes={routes} />
+    </Provider>
   );
 }
 export default Root;

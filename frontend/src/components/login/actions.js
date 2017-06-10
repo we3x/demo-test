@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
-import { fetch } from '../utils';
+import { fetch } from '../../utils';
 import LOGIN from './constants';
-import { apiUrl } from '../constants';
+import { apiUrl } from '../../constants';
 
 
 const reset = createAction(LOGIN, () => ({
@@ -27,13 +27,13 @@ const fail = createAction(LOGIN, error => ({
 }));
 
 
-const login = (email, password) =>
+const login = (username, password) =>
   (dispatch) => {
     dispatch(begin());
     fetch({
-      url: `${apiUrl}/auth/tokens`,
+      url: `${apiUrl}auth/`,
       body: {
-        email,
+        username,
         password,
       },
       contentType: 'application/json',
