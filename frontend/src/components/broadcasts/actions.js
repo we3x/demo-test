@@ -24,11 +24,11 @@ const fail = createAction(BROADCAST_LIST, error => ({
   error,
 }));
 
-const get = (type) =>
+const get = () =>
   (dispatch) => {
     dispatch(begin());
     fetch({
-      url: `${apiUrl}${type}Broadcasts/`,
+      url: `${apiUrl}allBroadcasts/`,
       method: 'GET',
     })
       .then(broadcasts => {

@@ -5,8 +5,6 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'allBroadcasts', views.BroadcastList)
-router.register(r'normalBroadcasts', views.NormalBroadcastList)
-router.register(r'premiumBroadcasts', views.PremiumBroadcastList)
 router.register(r'categorys', views.CategoryList)
 router.register(r'me', views.MeViewSet, base_name='me')
 

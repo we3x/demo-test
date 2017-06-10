@@ -11,9 +11,9 @@ const mapStateToProps = state => {
 
 
 function filterBroadcast(props) {
-  let filtered = [];
+  let filtered = props.broadcasts;
   if (props.type === 'premium') {
-    filtered = props.broadcasts.map(broadcast => {
+    filtered = filtered.map(broadcast => {
       if (broadcast.premium === true) {
         return broadcast;
       }
@@ -21,14 +21,13 @@ function filterBroadcast(props) {
     });
   }
   if (props.type !== 'premium') {
-    filtered = props.broadcasts.map(broadcast => {
+    filtered = filtered.map(broadcast => {
       if (broadcast.premium === false) {
         return broadcast;
       }
       return null;
     });
   }
-  console.log(filtered);
   return (
       <div>
         <table className="table">
