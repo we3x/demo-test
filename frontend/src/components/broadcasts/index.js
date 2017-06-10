@@ -5,7 +5,6 @@ import Broadcast from '../broadcast';
 
 
 const mapStateToProps = state => {
-  console.log(state);
   const data = {
     broadcasts: state.broadcastList.broadcasts,
   };

@@ -27,3 +27,9 @@ class CategoryList(viewsets.ModelViewSet):
     permission_classes = (IsReadOnly,)
     serializer_class = serializers.CategorySerializer
     queryset = serializer_class.Meta.model.objects.all()
+
+class MeViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.MeSerializer
+    def get_queryset(self):
+        user = self.request.user
+        return [user]

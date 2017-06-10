@@ -1,6 +1,10 @@
 from restApi.models import Broadcast, Category
 from rest_framework import serializers
 
+class MeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields=('username',)
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
