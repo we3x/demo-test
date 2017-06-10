@@ -3,7 +3,6 @@ import { fetch } from '../../utils';
 import LOGIN from './constants';
 import { apiUrl } from '../../constants';
 
-
 const reset = createAction(LOGIN, () => ({
   status: 'initial',
 }));
@@ -14,7 +13,7 @@ const begin = createAction(LOGIN, () => ({
 
 const success = createAction(LOGIN, json => {
   // eslint-disable-next-line no-undef
-  window.localStorage.liveeduToken = json.token;
+  console.log('here');
   return {
     token: json.token,
     status: 'success',
@@ -25,24 +24,6 @@ const fail = createAction(LOGIN, error => ({
   error: error.message,
   status: 'error',
 }));
-
-function getMe() {
-  fetch({
-    url: `${apiUrl}me/`,
-    contentType: 'application/json',
-    method: 'GET',
-  })
-    .then(username => {
-      // eslint-disable-next-line no-undef
-      console.log(username);
-      window.localStorage.username = username[0].username;
-      return username;
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
-
 
 const login = (username, password) =>
   (dispatch) => {
@@ -57,8 +38,21 @@ const login = (username, password) =>
       method: 'POST',
     })
       .then(token => {
-        dispatch(success(token));
-        getMe();
+        window.localStorage.liveeduToken = token.token;
+        fetch({
+          url: `${apiUrl}me/`,
+          contentType: 'application/json',
+          method: 'GET',
+        })
+          .then(name => {
+            window.localStorage.username = name[0].username;
+            return name[0].username;
+          }).then(() => (
+              dispatch(success(token))
+          ))
+          .catch(error => {
+            console.log(error);
+          });
         return token;
       })
       .catch(error => {

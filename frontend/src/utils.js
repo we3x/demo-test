@@ -9,6 +9,10 @@ export function getAuthToken() {
 export function isLoggedIn() {
   return Boolean(getAuthToken());
 }
+export function isGetUsername() {
+  console.log(Boolean(window.localStorage.username));
+  return Boolean(window.localStorage.username);
+}
 export function logOut() {
   // eslint-disable-next-line no-undef
   window.localStorage.removeItem('liveeduToken');

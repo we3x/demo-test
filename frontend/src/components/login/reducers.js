@@ -5,6 +5,7 @@ export default function login(state = { status: 'initial' }, action) {
     case LOGIN: {
       return {
         token: action.payload.token,
+        username: action.payload.username,
         error: action.payload.error,
         status: action.payload.status,
       };
