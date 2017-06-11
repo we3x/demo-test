@@ -1,0 +1,2 @@
+const POST_BROADCAST = 'POST_BROADCAST';
+export default POST_BROADCAST;
