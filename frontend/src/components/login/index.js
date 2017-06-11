@@ -30,7 +30,7 @@ const Component = React.createClass({
 
   componentWillMount() {
     if (isLoggedIn()) {
-      this.context.router.push('/home/');
+      this.context.router.push('/broadcasts/');
     }
   },
 
@@ -43,7 +43,7 @@ const Component = React.createClass({
 
   shouldComponentUpdate() {
     if (isLoggedIn()) {
-      this.context.router.push('/home/');
+      this.context.router.push('/broadcasts/');
       return false;
     }
     return true;

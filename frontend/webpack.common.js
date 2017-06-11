@@ -2,7 +2,6 @@ const path = require('path');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 
-const localIdentName = '[path]___[name]__[local]___[hash:base64:5]';
 
 module.exports = {
   entry: ['./src/index'],
@@ -29,13 +28,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: [
-          'style?sourceMap',
-          `css?sourceMap&modules&importLoaders=1&localIdentName=${localIdentName}`,
-          'resolve-url',
-          'postcss',
-        ],
-      },
+        loader: 'style-loader!css-loader' },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [

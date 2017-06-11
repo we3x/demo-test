@@ -7,6 +7,7 @@ import Broadcast from '../broadcast';
 const mapStateToProps = state => {
   const data = {
     broadcasts: state.broadcastList.broadcasts,
+    date: state.calendar.date,
   };
   return data;
 };
@@ -15,6 +16,8 @@ const BroadcastList = React.createClass({
   propTypes: {
     broadcasts: React.PropTypes.array,
     get: React.PropTypes.func,
+    date: React.PropTypes.object,
+    children: React.PropTypes.node,
   },
 
   getDefaultProps() {

@@ -1,6 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+const mapStateToProps = (state) => ({
+  categorys: state.categorys.categorys,
+});
 function Broadcast(props) {
+  const category = props.categorys.filter(cat => (cat.id === props.category))[0];
   return (
     <tr>
       <td>
@@ -16,7 +21,7 @@ function Broadcast(props) {
         {props.instructor}
       </td>
       <td>
-        {props.category}
+        {category.name}
       </td>
     </tr>
   );
@@ -27,6 +32,7 @@ Broadcast.propTypes = {
   startTime: React.PropTypes.string,
   instructor: React.PropTypes.string,
   category: React.PropTypes.number,
+  categorys: React.PropTypes.array,
 };
 
-export default Broadcast;
+export default connect(mapStateToProps)(Broadcast);

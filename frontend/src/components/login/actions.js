@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import { fetch } from '../../utils';
 import LOGIN from './constants';
 import { apiUrl } from '../../constants';
+import categoryActions from '../home/actions';
 
 const reset = createAction(LOGIN, () => ({
   status: 'initial',
@@ -11,14 +12,10 @@ const begin = createAction(LOGIN, () => ({
   status: 'pending',
 }));
 
-const success = createAction(LOGIN, json => {
-  // eslint-disable-next-line no-undef
-  console.log('here');
-  return {
-    token: json.token,
-    status: 'success',
-  };
-});
+const success = createAction(LOGIN, json => ({
+  token: json.token,
+  status: 'success',
+}));
 
 const fail = createAction(LOGIN, error => ({
   error: error.message,
@@ -45,9 +42,12 @@ const login = (username, password) =>
           method: 'GET',
         })
           .then(name => {
+            console.log(name);
             window.localStorage.username = name[0].username;
             return name[0].username;
           }).then(() => (
+              dispatch(categoryActions.getCategorys())
+          )).then(() => (
               dispatch(success(token))
           ))
           .catch(error => {

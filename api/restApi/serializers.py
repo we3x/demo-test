@@ -9,7 +9,7 @@ class MeSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('name',)
+        fields = ('name', 'id',)
 
 class BroadcastSerializer(serializers.ModelSerializer):
     instructor = serializers.ReadOnlyField(source='instructor.username')
