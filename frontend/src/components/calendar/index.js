@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import actions from './actions';
 
@@ -22,16 +21,25 @@ const Calendar = React.createClass({
     date: moment(),
   }),
 
-  handleChange(date) {
-    this.setState({ date });
-    this.props.setDate(date);
+  handleChangeTime(event) {
+    this.setState({ date: event.target.value });
+    this.props.setDate(event.target.value);
   },
   render() {
     return (
-      <DatePicker
-        selected={this.state.date}
-        onChange={this.handleChange}
-      />
+      <div>
+        <label className="col-sm-2 control-label">
+          Date and Time
+        </label>
+        <div className="col-sm-10">
+          <input
+            className="form-control"
+            type="text"
+            onChange={this.handleChangeTime}
+          />
+
+        </div>
+      </div>
     );
   },
 });
