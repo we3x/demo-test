@@ -1,0 +1,2 @@
+export const PATCH_BROADCAST = 'PATCH_BROADCAST';
+export const GET_BROADCAST = 'GET_BROADCAST';
