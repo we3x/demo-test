@@ -14,20 +14,22 @@ function mapStateToProps(state) {
 const Calendar = React.createClass({
   propTypes: {
     setDate: React.PropTypes.func,
-    date: React.PropTypes.object,
+    date: React.PropTypes.string,
   },
 
   getInitialState: () => ({
-    date: moment(),
+    date: moment().format('YYYY-MM-DD'),
   }),
 
+  handleSet() {
+    this.props.setDate(this.state.date);
+  },
   handleChangeTime(event) {
     this.setState({ date: event.target.value });
-    this.props.setDate(event.target.value);
   },
   render() {
     return (
-      <div>
+      <form>
         <label className="col-sm-2 control-label">
           Date and Time
         </label>
@@ -37,9 +39,11 @@ const Calendar = React.createClass({
             type="text"
             onChange={this.handleChangeTime}
           />
-
+          <button onClick={this.handleSet} >
+            Set Date
+          </button>
         </div>
-      </div>
+      </form>
     );
   },
 });

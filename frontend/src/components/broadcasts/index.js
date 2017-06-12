@@ -18,7 +18,7 @@ const BroadcastList = React.createClass({
   propTypes: {
     broadcasts: React.PropTypes.array,
     get: React.PropTypes.func,
-    date: React.PropTypes.object,
+    date: React.PropTypes.string,
     children: React.PropTypes.node,
     dateStatus: React.PropTypes.string,
   },
@@ -31,21 +31,6 @@ const BroadcastList = React.createClass({
 
   componentWillMount() {
     this.props.get();
-  },
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.dateStatus === 'changed') {
-      return false;
-    }
-    return true;
-  },
-  isEqualDate(sdate1, sdate2) {
-    const date1 = moment(sdate1);
-    const date2 = moment(sdate2);
-    return Boolean(
-      date1.getDate === date2.getDate &&
-      date1.getFullYear === date2.getFullYear &&
-      date1.getMonth === date2.getMonth
-    );
   },
   render() {
     return (
@@ -87,11 +72,11 @@ const BroadcastList = React.createClass({
                 <tbody>
                   {
                     this.props.broadcasts.map(broadcast => {
-                      if (this.isEqualDate(broadcast.startTime, this.props.date)) {
+                      if (this.props.date === moment(broadcast.startTime).format('YYYY-MM-DD')) {
                         return (
                           <Broadcast
                             title={broadcast.title}
-                            startTime={broadcast.startTime}
+                            startTime={(broadcast.startTime)}
                             instructor={broadcast.instructor}
                             category={broadcast.category}
                             key={`all_${broadcast.title}`}
@@ -99,8 +84,7 @@ const BroadcastList = React.createClass({
                         );
                       }
                       return null;
-                    }
-                    )
+                    })
                   }
                 </tbody>
               </table>
@@ -130,11 +114,11 @@ const BroadcastList = React.createClass({
                   {
                     this.props.broadcasts.map(broadcast => {
                       if (!broadcast.premium) {
-                        if (this.isEqualDate(broadcast.startTime, this.props.date)) {
+                        if (this.props.date === moment(broadcast.startTime).format('YYYY-MM-DD')) {
                           return (
                             <Broadcast
                               title={broadcast.title}
-                              startTime={broadcast.startTime}
+                              startTime={(broadcast.startTime)}
                               instructor={broadcast.instructor}
                               category={broadcast.category}
                               key={`all_${broadcast.title}`}
@@ -173,11 +157,11 @@ const BroadcastList = React.createClass({
                   {
                     this.props.broadcasts.map(broadcast => {
                       if (broadcast.premium) {
-                        if (this.isEqualDate(broadcast.startTime, this.props.date)) {
+                        if (this.props.date === moment(broadcast.startTime).format('YYYY-MM-DD')) {
                           return (
                             <Broadcast
                               title={broadcast.title}
-                              startTime={broadcast.startTime}
+                              startTime={(broadcast.startTime)}
                               instructor={broadcast.instructor}
                               category={broadcast.category}
                               key={`all_${broadcast.title}`}
