@@ -16,4 +16,4 @@ class BroadcastSerializer(serializers.ModelSerializer):
     premium = serializers.ReadOnlyField()
     class Meta:
         model = Broadcast
-        fields = ('title', 'startTime', 'instructor', 'category', 'premium')
+        fields = ('id', 'title', 'startTime', 'instructor', 'category', 'premium')
