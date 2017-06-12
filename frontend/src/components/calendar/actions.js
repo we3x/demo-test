@@ -2,7 +2,8 @@ import { createAction } from 'redux-actions';
 import CALENDAR from './constants';
 
 
-const reset = createAction(CALENDAR, () => ({
+const reset = createAction(CALENDAR, date => ({
+  date,
   status: 'initial',
 }));
 

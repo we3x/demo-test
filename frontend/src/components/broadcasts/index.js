@@ -2,12 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from './actions';
 import Broadcast from '../broadcast';
+import moment from 'moment';
 
 
 const mapStateToProps = state => {
   const data = {
     broadcasts: state.broadcastList.broadcasts,
     date: state.calendar.date,
+    dateStatus: state.calendar.status,
   };
   return data;
 };
@@ -18,6 +20,7 @@ const BroadcastList = React.createClass({
     get: React.PropTypes.func,
     date: React.PropTypes.object,
     children: React.PropTypes.node,
+    dateStatus: React.PropTypes.string,
   },
 
   getDefaultProps() {
@@ -28,6 +31,21 @@ const BroadcastList = React.createClass({
 
   componentWillMount() {
     this.props.get();
+  },
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.dateStatus === 'changed') {
+      return false;
+    }
+    return true;
+  },
+  isEqualDate(sdate1, sdate2) {
+    const date1 = moment(sdate1);
+    const date2 = moment(sdate2);
+    return Boolean(
+      date1.getDate === date2.getDate &&
+      date1.getFullYear === date2.getFullYear &&
+      date1.getMonth === date2.getMonth
+    );
   },
   render() {
     return (
@@ -68,15 +86,20 @@ const BroadcastList = React.createClass({
                 </thead>
                 <tbody>
                   {
-                    this.props.broadcasts.map(broadcast => (
-                        <Broadcast
-                          title={broadcast.title}
-                          startTime={broadcast.startTime}
-                          instructor={broadcast.instructor}
-                          category={broadcast.category}
-                          key={`all_${broadcast.title}`}
-                        />
-                      )
+                    this.props.broadcasts.map(broadcast => {
+                      if (this.isEqualDate(broadcast.startTime, this.props.date)) {
+                        return (
+                          <Broadcast
+                            title={broadcast.title}
+                            startTime={broadcast.startTime}
+                            instructor={broadcast.instructor}
+                            category={broadcast.category}
+                            key={`all_${broadcast.title}`}
+                          />
+                        );
+                      }
+                      return null;
+                    }
                     )
                   }
                 </tbody>
@@ -107,15 +130,17 @@ const BroadcastList = React.createClass({
                   {
                     this.props.broadcasts.map(broadcast => {
                       if (!broadcast.premium) {
-                        return (
-                          <Broadcast
-                            title={broadcast.title}
-                            startTime={broadcast.startTime}
-                            instructor={broadcast.instructor}
-                            category={broadcast.category}
-                            key={`normal_${broadcast.title}`}
-                          />
-                        );
+                        if (this.isEqualDate(broadcast.startTime, this.props.date)) {
+                          return (
+                            <Broadcast
+                              title={broadcast.title}
+                              startTime={broadcast.startTime}
+                              instructor={broadcast.instructor}
+                              category={broadcast.category}
+                              key={`all_${broadcast.title}`}
+                            />
+                          );
+                        }
                       }
                       return null;
                     })
@@ -148,15 +173,17 @@ const BroadcastList = React.createClass({
                   {
                     this.props.broadcasts.map(broadcast => {
                       if (broadcast.premium) {
-                        return (
-                          <Broadcast
-                            title={broadcast.title}
-                            startTime={broadcast.startTime}
-                            instructor={broadcast.instructor}
-                            category={broadcast.category}
-                            key={`premium_${broadcast.title}`}
-                          />
-                        );
+                        if (this.isEqualDate(broadcast.startTime, this.props.date)) {
+                          return (
+                            <Broadcast
+                              title={broadcast.title}
+                              startTime={broadcast.startTime}
+                              instructor={broadcast.instructor}
+                              category={broadcast.category}
+                              key={`all_${broadcast.title}`}
+                            />
+                          );
+                        }
                       }
                       return null;
                     })

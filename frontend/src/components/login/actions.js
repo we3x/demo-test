@@ -41,13 +41,11 @@ const login = (username, password) =>
           contentType: 'application/json',
           method: 'GET',
         })
-          .then(name => {
-            console.log(name);
+          .then((name) => {
             window.localStorage.username = name[0].username;
+            dispatch(categoryActions.getCategorys());
             return name[0].username;
           }).then(() => (
-              dispatch(categoryActions.getCategorys())
-          )).then(() => (
               dispatch(success(token))
           ))
           .catch(error => {

@@ -1,6 +1,7 @@
 import CALENDAR from './constants';
+import moment from 'moment';
 
-export default function calendar(state = { status: 'initial' }, action) {
+export default function calendar(state = { status: 'initial', date: moment() }, action) {
   switch (action.type) {
     case CALENDAR: {
       return {
