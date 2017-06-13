@@ -1,1 +1,1 @@
-export const apiUrl = 'http://localhost:8000/api/v1/';
+export const apiUrl = 'https://polar-everglades-73296.herokuapp.com/api/v1/';

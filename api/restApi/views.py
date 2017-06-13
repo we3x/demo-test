@@ -1,11 +1,11 @@
 from restApi import serializers
 from rest_framework import permissions, viewsets
 from django.contrib.auth.models import User
-from .permissions import IsReadOnly
+from .permissions import IsReadOnly, IsOwnerOrReadOnly
 
 
 class BroadcastList(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsOwnerOrReadOnly,)
     serializer_class = serializers.BroadcastSerializer
     queryset = serializer_class.Meta.model.objects.all()
 

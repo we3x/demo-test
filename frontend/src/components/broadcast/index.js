@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state) => ({
-  categorys: state.categorys.categorys,
-});
+const mapStateToProps = (state) => {
+  const data = {
+    categorys: state.categorys.categorys,
+  };
+  return data;
+};
+
 function Broadcast(props) {
   const category = props.categorys.filter(cat => (cat.id === props.category))[0];
   return (

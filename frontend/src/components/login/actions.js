@@ -2,7 +2,6 @@ import { createAction } from 'redux-actions';
 import { fetch } from '../../utils';
 import LOGIN from './constants';
 import { apiUrl } from '../../constants';
-import categoryActions from '../home/actions';
 
 const reset = createAction(LOGIN, () => ({
   status: 'initial',
@@ -43,7 +42,6 @@ const login = (username, password) =>
         })
           .then((name) => {
             window.localStorage.username = name[0].username;
-            dispatch(categoryActions.getCategorys());
             return name[0].username;
           }).then(() => (
               dispatch(success(token))
