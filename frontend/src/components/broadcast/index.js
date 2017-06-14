@@ -9,7 +9,10 @@ const mapStateToProps = (state) => {
 };
 
 function Broadcast(props) {
-  const category = props.categorys.filter(cat => (cat.id === props.category))[0];
+  let category = '';
+  if (Boolean(props.categorys[0])) {
+    category = props.categorys.filter(cat => (cat.id === props.category))[0].name;
+  }
   return (
     <tr>
       <td>
@@ -25,7 +28,7 @@ function Broadcast(props) {
         {props.instructor}
       </td>
       <td>
-        {category.name}
+        {category}
       </td>
     </tr>
   );
